@@ -1,51 +1,60 @@
-import java.util.List;
-import java.util.function.Predicate;
-
 /**
  * This interface represents all the operations to be supported by a list of integers.
  */
 public interface IListOfInts {
 
     /**
-     * adds to front
+     * Adds data to the front of the list.
+     * @param data
+     * @return new list
      */
     IListOfInts prepend(int data);
 
     /**
-     * adds to back
+     * Recursively adds data to the back of the list.
+     * @param data
+     * @return new list
      */
     IListOfInts append(int data);
 
     /**
-     * inserts data so as to become the index'th element, before rest
+     * Checks if the index = 0 (base case)
+     * If not base case recursively inserts data so as to become the index'th element, before rest.
+     * @param data
+     * @param index
+     * @return new list
      */
     IListOfInts insertAtIndex(int data, int index);
 
     /**
-     *
+     * Checks if the index = 0 (base case)
+     * If not base case recursively retrieves data at a certain index.
+     * @param index
+     * @return data from a specific index
      */
     int getDataAtIndex(int index);
 
     /**
-     * Returns list of all but the first
+     * Returns list of all elements but the first.
+     * @return the list excluding the front element.
      */
     IListOfInts getRest();
 
     /**
-     * Return the number of integers in this list
-     * @return the length of this list
+     * Returns the number of integers in this list.
+     * @return the length of this list.
      */
     int getCount();
 
     /**
-     * Return the sum of integers in this list
-     * @return the sum of the elements in the list
+     * Returns the sum of integers in this list.
+     * @return the sum of all elements in the list.
      */
     int getSum();
 
     /**
-     * Create and return a string that can be used to print this list
-     * @return
+     * Create and return a string that can be used to print this list.
+     * @return the list.
      */
-    String toString();
+    public String toString();
 }

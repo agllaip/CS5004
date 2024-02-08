@@ -1,4 +1,5 @@
 public class EmptyNode implements IListOfInts{
+
     @Override
     public IListOfInts prepend(int data) {
         return new ElementNode(data, this);
@@ -11,25 +12,23 @@ public class EmptyNode implements IListOfInts{
 
     @Override
     public IListOfInts insertAtIndex(int data, int index) {
-        if (index == 0)                     // If the index is equal to 0 insert data at front of list
-            return prepend(data);           // Calls prepend and inserts data at front and returns updated list
-        else {                              // If index is not 0 (can't insert at given index)
-            System.out.println("Cannot insert " + data + "at index " + index + ".");
-            return this;                    // Returns unchanged list
+        if (index == 0) {
+            return new ElementNode(data, this);
+        }
+        // How do I insert element at index in an empty list? Do I just add it to index 0?
+        else {
+            throw new IndexOutOfBoundsException("There is no such index. Node is empty.");
         }
     }
 
     @Override
     public int getDataAtIndex(int index) {
-        System.out.println("No value at " + index + ". List is empty.");
-        return -1;                          // What am I returning?
-
+        throw new IndexOutOfBoundsException("There is no such index. Node is empty.");
     }
 
     @Override
     public IListOfInts getRest() {
-        System.out.println("Cannot get rest of list because the list is empty.");
-        return this;
+        throw new IndexOutOfBoundsException("Node is empty, there is no list to provide.");
     }
 
     @Override
@@ -44,6 +43,6 @@ public class EmptyNode implements IListOfInts{
 
     @Override
     public String toString() {
-        return "";                          // What am I returning ??
+        return "";
     }
 }

@@ -1,3 +1,5 @@
+import javax.swing.text.Element;
+
 public class ElementNode implements IListOfInts{
     private int data;
     private IListOfInts rest;
@@ -9,14 +11,20 @@ public class ElementNode implements IListOfInts{
 
     @Override
     public IListOfInts prepend(int data) {
-        return new ElementNode(data, this);             // Add data to the front of the list and return new list
+        return new ElementNode(data, this);                 // Add data to the front of the list and return new list
     }
 
     @Override
     public IListOfInts append(int data) {
-        rest = rest.append(data);                           // Recursively calls append method on the rest of the current list.
-        return this;                                        // This ensures the data is appended to the end of the list recursively
-    }                                                       // until reaching base case (empty node).
+        if (rest instanceof EmptyNode) {                        // Base case: If current list is empty,
+            rest = new ElementNode(data, new EmptyNode());    // Creates a new ElementNode with the given data, and an empty list (new EmptyNode()) as its rest.
+        }                                                       // Adds the data to the current list, replacing the empty list with the new node.
+
+        else {                                                  // Current list is not empty
+            rest = rest.append(data);                           // Recursively append data to the rest of the list (ensures data is appended to the end of the list)
+        }
+        return rest;                                            // Return newly appended list
+    }
 
     @Override
     public IListOfInts insertAtIndex(int data, int index) {
@@ -32,12 +40,18 @@ public class ElementNode implements IListOfInts{
 
     @Override
     public int getDataAtIndex(int index) {
-        if (index == 0)
-            return data;
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("Index must be positive.");
+        }
 
-        else                                                    // If index != 0 (data is located somewhere other than the current node)
+        else if (index == 0) {
+            return data;
+        }
+
+        else {                                                    // If index != 0 (data is located somewhere other than the current node)
             return rest.getDataAtIndex(index - 1);              // Recursively calls getDataAtIndex on the rest of the current list
-    }                                                           // Decrement index by 1 to ensure the recursion progresses towards the base case (index = 0)
+        }                                                           // Decrement index by 1 to ensure the recursion progresses towards the base case (index = 0)
+    }
 
     @Override
     public IListOfInts getRest() {
@@ -46,16 +60,28 @@ public class ElementNode implements IListOfInts{
 
     @Override
     public int getCount() {
-        return rest.getCount() + 1;
+        if (rest instanceof EmptyNode) {
+            return 1;
+        }
+
+        else {
+            return rest.getCount() + 1;
+        }
     }
 
     @Override
     public int getSum() {
-        return rest.getSum() + 1;
+        if (rest instanceof EmptyNode) {
+            return data;
+        }
+
+        else {
+            return rest.getSum() + data;
+        }
     }
 
     @Override
     public String toString() {
-        return "";              // What am I returning ??
+        return data + " " + rest.toString();
     }
 }
