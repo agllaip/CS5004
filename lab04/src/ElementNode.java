@@ -17,7 +17,7 @@ public class ElementNode implements IListOfInts{
     @Override
     public IListOfInts append(int data) {
         if (rest instanceof EmptyNode) {                        // Base case: If current list is empty,
-            rest = new ElementNode(data, new EmptyNode());    // Creates a new ElementNode with the given data, and an empty list (new EmptyNode()) as its rest.
+            rest = new ElementNode(data, new EmptyNode());      // Creates a new ElementNode with the given data, and an empty list (new EmptyNode()) as its rest.
         }                                                       // Adds the data to the current list, replacing the empty list with the new node.
 
         else {                                                  // Current list is not empty
@@ -28,8 +28,8 @@ public class ElementNode implements IListOfInts{
 
     @Override
     public IListOfInts insertAtIndex(int data, int index) {
-        if (index == 0) {                                   // If index is at 0 insert data at front
-            return new ElementNode(data, this);        // new data at front the rest of the integers trailing it
+        if (index == 0) {                                         // If index is at 0 insert data at front
+            return new ElementNode(data, this);              // new data at front the rest of the integers trailing it
         }
 
         else {                                                    // If index != 0 data should be inserted somewhere else
@@ -48,8 +48,8 @@ public class ElementNode implements IListOfInts{
             return data;
         }
 
-        else {                                                    // If index != 0 (data is located somewhere other than the current node)
-            return rest.getDataAtIndex(index - 1);              // Recursively calls getDataAtIndex on the rest of the current list
+        else {                                                      // If index != 0 (data is located somewhere other than the current node)
+            return rest.getDataAtIndex(index - 1);                  // Recursively calls getDataAtIndex on the rest of the current list
         }                                                           // Decrement index by 1 to ensure the recursion progresses towards the base case (index = 0)
     }
 

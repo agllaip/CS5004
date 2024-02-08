@@ -15,7 +15,7 @@ public class EmptyNode implements IListOfInts{
         if (index == 0) {
             return new ElementNode(data, this);
         }
-        // How do I insert element at index in an empty list? Do I just add it to index 0?
+
         else {
             throw new IndexOutOfBoundsException("There is no such index. Node is empty.");
         }
