@@ -9,10 +9,10 @@ public class Shoes {
 
     /**
      * Construct a shoe object using the four given parameters.
-     * @param type
-     * @param color
-     * @param brand
-     * @param size
+     * @param type refers to the kind of shoe, example: sneaker.
+     * @param color refers to the color of the shoe.
+     * @param brand refers to the brand that makes the shoe.
+     * @param size refers to the size of the shoe.
      */
     public Shoes(String type, String color, String brand, double size) {
         this.type = type;

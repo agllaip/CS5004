@@ -1,24 +1,24 @@
 public enum Suit {
 
-    CLUBS("BLACK", 0),
-    DIAMONDS("RED", 2),
-    HEARTS("RED", 1),
-    SPADES("BLACK", 3);
+    CLUBS("BLACK"),
+    HEARTS("RED"),
+    DIAMONDS("RED"),
+    SPADES("BLACK");
 
     // Store the color associated with each suit:
     private final String color;
-    private final int value;
+    //private final String suit;
 
-    Suit(String color, int value) {
+   Suit(String color) {
         this.color = color;
-        this.value = value;
+        //this.suit = suit;
     }
 
     public String getColor() {
-        return color;
+       return color;
     }
 
-    public int getValue() {
-        return value;
-    }
+    //public String getSuit() {
+        //return suit;
+    //}
 }

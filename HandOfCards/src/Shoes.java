@@ -14,7 +14,7 @@ public class Shoes {
      * @param brand
      * @param size
      */
-        public Shoe(String type, String color, String brand, double size) {
+        public Shoes(String type, String color, String brand, double size) {
             this.type = type;
             this.color = color;
             this.brand = brand;

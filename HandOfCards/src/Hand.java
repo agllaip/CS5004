@@ -1,4 +1,3 @@
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -33,9 +32,10 @@ public interface Hand<C> {
 
     /**
      * Checks if a Hand is empty.
+     *
      * @return ...
      */
-    boolean isEmpty();
+    int isEmpty();
 
     /**
      * Return the index of the first item in the Hand that is equal to it, or -1 if the Hand does not contain that particular card.
