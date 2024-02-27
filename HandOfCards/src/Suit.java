@@ -1,3 +1,6 @@
+/**
+ * Enumeration representing the suits of playing cards.
+ */
 public enum Suit {
 
     CLUBS("BLACK"),
@@ -5,20 +8,21 @@ public enum Suit {
     DIAMONDS("RED"),
     SPADES("BLACK");
 
-    // Store the color associated with each suit:
     private final String color;
-    //private final String suit;
 
+    /**
+     * Constructs a Suit enum value with the specified color.
+     * @param color the color associated with the suit.
+     */
    Suit(String color) {
         this.color = color;
-        //this.suit = suit;
     }
 
+    /**
+     * Gets the color associated with the suit.
+     * @return the color of the suit.
+     */
     public String getColor() {
        return color;
     }
-
-    //public String getSuit() {
-        //return suit;
-    //}
 }

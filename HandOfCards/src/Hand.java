@@ -3,47 +3,57 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * This interface contains all operations that all types of ....
+ * This interface represents a hand of cards and defines various operations on it.
+ * @param <C> the type of objects in the hand (i.e. Cards)
  */
 public interface Hand<C> {
 
     /**
-     * Adds one card to the "front" of a Hand.
+     * Adds one card to the 'front' (index 0) of the hand.
+     * @param card the object to add to the front of the hand.
      */
     // void means the method does not return a value after it is executed.
     // Method takes a parameter of type C, the parameter is named 'card' (represents object that will be added to the Hand).
     void add(C card);
 
     /**
-     * Removes the index’th card from a Hand (after verifying that the index is valid).
+     * Removes the card at the specified index from the hand (after verifying that the index is valid).
+     * @param index the index of the object to discard.
+     * @throws IndexOutOfBoundsException if the index is out of range.
      */
     void discard(int index);
 
     /**
-     * Gets the index’th card from the Hand (ensuring that the index is within bounds).
+     * Returns the card at the specified index from the hand (after verifying that the index is valid).
+     * @param index the index of the object to get.
+     * @return the object at the specified index.
+     * @throws IndexOutOfBoundsException if the index is out of range.
      */
     // C indicates return type - in this case 'Card', but could be another type depending on how 'Hand' us implemented.
     C get(int index);
 
     /**
-     * Returns the number of cards currently in the Hand.
+     * Returns the number of objects currently in the Hand.
+     * @return the number of objects currently in the Hand.
      */
     int getSize();
 
     /**
-     * Checks if a Hand is empty.
-     *
-     * @return ...
+     * Checks if the hand is empty.
+     * @return true if the hand is empty, false otherwise.
      */
-    int isEmpty();
+    boolean isEmpty();
 
     /**
-     * Return the index of the first item in the Hand that is equal to it, or -1 if the Hand does not contain that particular card.
+     * Returns the index of the first occurrence of a card in the hand.
+     * @param card the object to find.
+     * @return the index of the first occurrence of the object.
      */
     int find(C card);
 
     /**
-     * Sort the Hand using the comparator function.
+     * Sorts the hand using the comparator function.
+     * @param comparator the comparator used for sorting.
      */
     // It performs some action but doesn't produce any result that needs to be returned.
     // Function is a functional interface in java representing a function that accepts one argument and produces a result
@@ -52,7 +62,9 @@ public interface Hand<C> {
     void sortHand(Function<C, Integer> comparator);
 
     /**
-     * Return a subset of a Hand based on a Predicate (such as “suitColor is RED” or “rank > 10”).
+     * Returns a subset of the hand based on the specified predicate (i.e. “suitColor is RED” or “rank > 10”).
+     * @param predicate the predicate to filter the hand.
+     * @return a list of the subset of the objects that satisfy the predicate.
      */
     // List<C> indicates a return type. The method will return a list of elements of type 'C' in Java.
     // (Predicate<C> predicate) represents the parameter list of the method, indicating the method takes a single parameter
@@ -62,11 +74,15 @@ public interface Hand<C> {
 
     /**
      * Returns the sum of the ranks of the cards in the hand.
+     * @return the sum of the ranks of the cards in the hand.
      */
     int rankSum();
 
     /**
-     * Returns a Hand<C> where C is some other reference type, such as mapping each Card to its Color or its Rank, based on a higher-order function f.
+     * Returns a new hand containing objects of a different type, based on the specified mapping function.
+     * @param <R> the type of the new objects.
+     * @param function the function to map objects to the new type.
+     * @return a new hand containing objects of the new type.
      */
     <R> Hand<R> getMap(Function<C, R> function);
 }

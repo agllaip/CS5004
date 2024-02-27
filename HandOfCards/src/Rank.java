@@ -1,3 +1,6 @@
+/**
+ * Enumeration representing the ranks of playing cards.
+ */
 public enum Rank {
     ACE(1),
     TWO(2),
@@ -15,10 +18,18 @@ public enum Rank {
 
     private final int value;
 
+    /**
+     * Constructs a Rank enum value with the specified values.
+     * @param value the value associated with the rank.
+     */
     Rank(int value) {
         this.value = value;
     }
 
+    /**
+     * Gets the value associated with the rank.
+     * @return the value of the rank.
+     */
     public int getValue() {
         return value;
     }
