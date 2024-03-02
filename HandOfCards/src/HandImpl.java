@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
@@ -8,11 +7,7 @@ import java.util.function.Predicate;
 /**
  * This class represents a hand of cards and provides implementations for all operations mandated by the Hand interface.
  */
-// Declare a public class named 'HandImpl' that implements the 'Hand<Card>' interface
-// Provides implementations for all methods defined in 'Hand' interfaced for the type 'Card'
 public class HandImpl implements Hand<Card> {
-    // Type: ArrayList<Card>
-    // field = cards
     private ArrayList<Card> cards;
 
     /**
@@ -23,12 +18,19 @@ public class HandImpl implements Hand<Card> {
         this.cards = new ArrayList<>();
     }
 
+    public HandImpl(ArrayList<Card> lst) {
+        this.cards = new ArrayList<>();
+        for (Card card : lst) {
+            cards.add(card);
+        }
+    }
+
     /**
      * Adds a card to the 'front' (index 0) of the hand.
      * @param card the card that gets added to the 'front' of the hand.
      */
     @Override
-    public void add(Card card){
+    public void add(Card card) {
         cards.addFirst(card);
     }
 
@@ -52,7 +54,7 @@ public class HandImpl implements Hand<Card> {
      * @throws IndexOutOfBoundsException if the index is out of range.
      */
     @Override
-    public Card get(int index){
+    public Card get(int index) {
         if (index < 0 || index >= cards.size()) {
             throw new IndexOutOfBoundsException("Index out of bounds.");
         }
@@ -64,7 +66,7 @@ public class HandImpl implements Hand<Card> {
      * @return the number of cards in the hand.
      */
     @Override
-    public int getSize () {
+    public int getSize() {
         return cards.size();
     }
 
@@ -73,7 +75,7 @@ public class HandImpl implements Hand<Card> {
      * @return true if the hand is empty, false otherwise.
      */
     @Override
-    public boolean isEmpty () {
+    public boolean isEmpty() {
         return cards.isEmpty();
     }
 
@@ -83,7 +85,7 @@ public class HandImpl implements Hand<Card> {
      * @return the index of the first occurrence of the specified card in the hand.
      */
     @Override
-    public int find (Card card){
+    public int find(Card card) {
         return cards.indexOf(card);
     }
 
@@ -92,7 +94,7 @@ public class HandImpl implements Hand<Card> {
      * @param comparator the comparator used for sorting.
      */
     @Override
-    public void sortHand(Comparator<Card> comparator){
+    public void sortHand(Comparator<Card> comparator) {
         cards.sort(comparator);
     }
 
@@ -119,26 +121,31 @@ public class HandImpl implements Hand<Card> {
      * @return the sum of the ranks of the cards in the hand.
      */
     @Override
-    public int rankSum () {
+    public int rankSum() {
         int sum = 0;
-        for (int i = 0; i < cards.size(); i++) {
-            sum += cards.get(i).getRank();
+        for (int i = 0; i< cards.size(); i++) {
+            if (cards.get(i) instanceof Card) {
+                Card card = (Card) cards.get(i);
+                sum += card.getRank().getValue();
+            }
         }
         return sum;
     }
 
     /**
      * Returns a new hand containing cards of a different type, based on the specified mapping function.
-     * @param <R> the type of the new cards.
+     * @param <Suit> the type of the new cards.
      * @param function the function to map cards to the new type.
      * @return a new hand containing cards of the new type.
      */
     @Override
-    public <R> Hand <R> getMap(Function <Card, R> function) {
-        ArrayList<R> newList = new ArrayList<R>();
+    public <Suit> Hand <Suit> getMap(Function <Card, Suit> function) {
+        ArrayList<Suit> newList = new ArrayList<>();
         for (int i = 0; i < cards.size(); i++) {
             newList.add(function.apply(cards.get(i)));
         }
-        return (Hand<R>) newList;
+        Hand<Suit> result;
+        result = new HandImpl();
+        return result;
     }
 }

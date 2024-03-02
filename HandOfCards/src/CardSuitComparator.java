@@ -1,10 +1,8 @@
 import java.util.Comparator;
-
 /**
  * The CardSuitComparator class implements Java's Comparator interface for comparing the suits of two cards.
  * CLUBS < HEARTS < DIAMONDS < SPADES
  */
-
 public class CardSuitComparator implements Comparator<Card> {
     /**
      * Compares two cards based on their suits.

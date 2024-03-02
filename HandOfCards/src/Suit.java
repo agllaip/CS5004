@@ -2,7 +2,6 @@
  * Enumeration representing the suits of playing cards.
  */
 public enum Suit {
-
     CLUBS("BLACK"),
     HEARTS("RED"),
     DIAMONDS("RED"),

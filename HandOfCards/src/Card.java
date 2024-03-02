@@ -4,8 +4,6 @@ import java.util.Objects;
  * This class represents a playing card.
  */
 public class Card implements Comparable<Card> {
-    // Instance variables: suit and rank
-    // final means they can only be initialized once
     private final Suit suit;
     private final Rank rank;
 
@@ -19,9 +17,10 @@ public class Card implements Comparable<Card> {
         this.suit = suit;
         this.rank = rank;
 
-        if (rank == null || rank.ordinal() < 1 || rank.ordinal() > 13) {
-            throw new IllegalArgumentException("Invalid rank, rank must be between 1 and 13.");
-        }
+//  Having a wrong rank as an exception does not make sense here.
+//        if (rank.ordinal() < 1 || rank.ordinal() > 13) {
+//            throw new IllegalArgumentException("Invalid rank, rank must be between 1 and 13.");
+//        }
     }
 
         /**
@@ -55,8 +54,7 @@ public class Card implements Comparable<Card> {
          * 1 if the rank of this card is greater than the rank of the other card,
          * and 0 if the rank of this card and the rank of the other card are equal.
          */
-        public int compareTo(Card other){
-            // Compare
+        public int compareTo(Card other) {
             if (this.rank.ordinal() < other.rank.ordinal()) {
                 return -1;
             }
@@ -96,7 +94,6 @@ public class Card implements Comparable<Card> {
          * Returns a hash code value for the card.
          * @return a hash code value for this card.
          */
-        // Generates a hash code for the 'Card' object based on suit and rank
         @Override
         public int hashCode() {
             return Objects.hash(suit, rank);

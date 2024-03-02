@@ -2,27 +2,26 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Comparator;
+import java.util.List;
+
 public class HandImplTest {
     private HandImpl hand;
     @Before
     public void setUp() throws Exception {
-        // Initialize a new HandImpl object before each test
         hand = new HandImpl();
     }
 
     @Test
-    public void add() {
+    public void testAdd() {
         Card card = new Card(Suit.CLUBS, Rank.ACE);
-        // Add a card to the hand
         hand.add(card);
-        // Check that the size of the hand is 1 after adding 1 card
         assertEquals(1, hand.getSize());
-        // Check if added card is the same as the one retrieved from hand
         assertEquals(card, hand.get(0));
     }
 
     @Test (expected = IndexOutOfBoundsException.class)
-    public void discard() {
+    public void testDiscard() {
         Card card = new Card(Suit.HEARTS, Rank.FOUR);
         hand.add(card);
         hand.discard(0);
@@ -33,34 +32,32 @@ public class HandImplTest {
     }
 
     @Test
-    public void get() {
-        Card card = new Card(Suit.CLUBS, Rank.ACE);
-        hand.add(card);
-        // Check if the retrieved card is the same as the one added to the hand
-        assertEquals(card, hand.get(0));
+    public void testGet() {
+        Card card1 = new Card(Suit.CLUBS, Rank.ACE);
+        Card card2 = new Card(Suit.HEARTS, Rank.FOUR);
+        hand.add(card2);
+        hand.add(card1);
+        assertEquals(card1, hand.get(0));
+        assertEquals(card2, hand.get(1));
     }
 
     @Test
-    public void getSize() {
+    public void testGetSize() {
         assertEquals(0, hand.getSize());
-        hand.add(Suit.HEARTS, Rank.FOUR);
-        hand.add(Suit.CLUBS, Rank.ACE);
+        hand.add(new Card(Suit.HEARTS, Rank.FOUR));
+        hand.add(new Card(Suit.CLUBS, Rank.ACE));
         assertEquals(2, hand.getSize());
     }
 
     @Test
-    public void isEmpty() {
-        // Check that hand is empty
+    public void testIsEmpty() {
         assertTrue(hand.isEmpty());
-        // Add card
         hand.add(new Card(Suit.CLUBS, Rank.ACE));
-        // Check if card is empty (not empty)
         assertFalse(hand.isEmpty());
-
     }
 
     @Test
-    public void find() {
+    public void testFind() {
         Card card1 = new Card(Suit.CLUBS, Rank.ACE);
         Card card2 = new Card(Suit.HEARTS, Rank.FOUR);
         hand.add(card1);
@@ -70,18 +67,75 @@ public class HandImplTest {
     }
 
     @Test
-    public void sortHand() {
+    public void testSortHand() {
+        Card card1 = new Card(Suit.CLUBS, Rank.ACE);
+        Card card2 = new Card(Suit.HEARTS, Rank.FOUR);
+        Card card3 = new Card(Suit.DIAMONDS, Rank.QUEEN);
+        Card card4 = new Card(Suit.SPADES, Rank.SEVEN);
+
+        hand.add(card1);
+        hand.add(card4);
+        hand.add(card3);
+        hand.add(card2);
+
+        hand.sortHand(Comparator.comparing(Card::getSuit));
+
+        assertEquals(card1, hand.get(0));
+        assertEquals(card2, hand.get(1));
+        assertEquals(card3, hand.get(2));
+        assertEquals(card4, hand.get(3));
     }
 
     @Test
-    public void getHand() {
+    public void testGetHand() {
+        Card card1 = new Card(Suit.CLUBS, Rank.ACE);
+        Card card2 = new Card(Suit.HEARTS, Rank.FOUR);
+        Card card3 = new Card(Suit.DIAMONDS, Rank.QUEEN);
+        Card card4 = new Card(Suit.SPADES, Rank.SEVEN);
+
+        hand.add(card1);
+        hand.add(card4);
+        hand.add(card3);
+        hand.add(card2);
+
+        List<Card> blackCards = hand.getHand(card -> card.getSuit().getColor().equals("BLACK"));
+        assertTrue(blackCards.stream().allMatch(card -> card.getSuit().getColor().equals("BLACK")));
+
+        List<Card> redCards = hand.getHand(card -> card.getSuit().getColor().equals("RED"));
+        assertTrue(redCards.stream().allMatch(card -> card.getSuit().getColor().equals("RED")));
+
+        List<Card> lessThanJackCards = hand.getHand(card -> card.getRank().getValue() < 11);
+        assertTrue(lessThanJackCards.stream().allMatch(card -> card.getRank().getValue() < 11));
     }
 
     @Test
-    public void rankSum() {
+    public void testRankSum() {
+        Card card1 = new Card(Suit.CLUBS, Rank.ACE);
+        Card card2 = new Card(Suit.HEARTS, Rank.FOUR);
+        Card card3 = new Card(Suit.DIAMONDS, Rank.QUEEN);
+        Card card4 = new Card(Suit.SPADES, Rank.SEVEN);
+
+        hand.add(card1);
+        hand.add(card4);
+        hand.add(card3);
+        hand.add(card2);
+
+        assertEquals(24, hand.rankSum());
+        hand.discard(0);
+        assertEquals(20, hand.rankSum());
     }
 
     @Test
-    public void getMap() {
+    public void testGetMap() {
+        Card card1 = new Card(Suit.CLUBS, Rank.ACE);
+        Card card2 = new Card(Suit.HEARTS, Rank.FOUR);
+
+        hand.add(card1);
+        hand.add(card2);
+
+        Hand<Suit> suitHand = hand.getMap(Card::getSuit);
+
+        assertTrue(suitHand.get(0) instanceof Suit);
+        assertTrue(suitHand.get(1) instanceof Suit);
     }
 }
