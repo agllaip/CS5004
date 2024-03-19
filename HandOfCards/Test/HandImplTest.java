@@ -88,6 +88,9 @@ public class HandImplTest {
 
     @Test
     public void testGetHand() {
+        // Declare hand object with the correct type
+        HandImpl<Card> hand = new HandImpl<>();
+
         Card card1 = new Card(Suit.CLUBS, Rank.ACE);
         Card card2 = new Card(Suit.HEARTS, Rank.FOUR);
         Card card3 = new Card(Suit.DIAMONDS, Rank.QUEEN);
@@ -127,6 +130,9 @@ public class HandImplTest {
 
     @Test
     public void testGetMap() {
+        // Declare hand object with the correct type
+        HandImpl<Card> hand = new HandImpl<>();
+
         Card card1 = new Card(Suit.CLUBS, Rank.ACE);
         Card card2 = new Card(Suit.HEARTS, Rank.FOUR);
 

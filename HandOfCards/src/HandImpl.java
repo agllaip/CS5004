@@ -3,12 +3,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 /**
  * This class represents a hand of cards and provides implementations for all operations mandated by the Hand interface.
  */
-public class HandImpl implements Hand<Card> {
-    private ArrayList<Card> cards;
+public class HandImpl<T> implements Hand<T> {
+    private ArrayList<T> cards;
 
     /**
      * Constructs an empty hand.
@@ -18,9 +20,9 @@ public class HandImpl implements Hand<Card> {
         this.cards = new ArrayList<>();
     }
 
-    public HandImpl(ArrayList<Card> lst) {
+    public HandImpl(ArrayList<T> lst) {
         this.cards = new ArrayList<>();
-        for (Card card : lst) {
+        for (T card : lst) {
             cards.add(card);
         }
     }
@@ -30,7 +32,7 @@ public class HandImpl implements Hand<Card> {
      * @param card the card that gets added to the 'front' of the hand.
      */
     @Override
-    public void add(Card card) {
+    public void add(T card) {
         cards.addFirst(card);
     }
 
@@ -54,7 +56,7 @@ public class HandImpl implements Hand<Card> {
      * @throws IndexOutOfBoundsException if the index is out of range.
      */
     @Override
-    public Card get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= cards.size()) {
             throw new IndexOutOfBoundsException("Index out of bounds.");
         }
@@ -85,7 +87,7 @@ public class HandImpl implements Hand<Card> {
      * @return the index of the first occurrence of the specified card in the hand.
      */
     @Override
-    public int find(Card card) {
+    public int find(T card) {
         return cards.indexOf(card);
     }
 
@@ -94,7 +96,7 @@ public class HandImpl implements Hand<Card> {
      * @param comparator the comparator used for sorting.
      */
     @Override
-    public void sortHand(Comparator<Card> comparator) {
+    public void sortHand(Comparator<T> comparator) {
         cards.sort(comparator);
     }
 
@@ -104,8 +106,8 @@ public class HandImpl implements Hand<Card> {
      * @return a list of the subset of the cards that satisfy the predicate.
      */
     @Override
-    public List<Card> getHand(Predicate<Card> predicate) {
-        List<Card> newHand = new ArrayList<>();
+    public List<T> getHand(Predicate<T> predicate) {
+        List<T> newHand = new ArrayList<>();
         // Iterate through each Card in the list of cards
         for (int i = 0; i < cards.size(); i++) {
         // If any of the cards I iterate through satisfy the predicate (some condition) add them to my hand
@@ -138,14 +140,29 @@ public class HandImpl implements Hand<Card> {
      * @param function the function to map cards to the new type.
      * @return a new hand containing cards of the new type.
      */
+//    @Override
+//    public <Suit> Hand <Suit> getMap(Function <Card, Suit> function) {
+//        ArrayList<Suit> newList = new ArrayList<>();
+//        for (int i = 0; i < cards.size(); i++) {
+//            newList.add(function.apply(cards.get(i)));
+//        }
+//        Hand<Suit> result;
+//        result = new HandImpl();
+//        return result;
+//    }
+
+    // NEW MAP METHOD
     @Override
-    public <Suit> Hand <Suit> getMap(Function <Card, Suit> function) {
-        ArrayList<Suit> newList = new ArrayList<>();
-        for (int i = 0; i < cards.size(); i++) {
-            newList.add(function.apply(cards.get(i)));
-        }
-        Hand<Suit> result;
-        result = new HandImpl();
+    public <Suit> Hand<Suit> getMap(Function<T, Suit> function) {
+        // Convert the list of cards to a stream
+        // Apply the mapping function
+        // Collect the results into a list
+        ArrayList<Suit> newCards = (ArrayList<Suit>) cards.stream().map(function).collect(Collectors.toList());
+
+        // Create a new Hand instance with the mapped cards
+        Hand<Suit> result = new HandImpl<>(newCards);
+
+        // Return the Hand instance containing the transformed cards
         return result;
     }
 }

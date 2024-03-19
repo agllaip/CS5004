@@ -53,7 +53,7 @@ public interface Hand<C> {
      * Sorts the hand using the comparator function.
      * @param comparator the comparator used for sorting.
      */
-    void sortHand(Comparator<Card> comparator);
+    void sortHand(Comparator<C> comparator);
 
     /**
      * Returns a subset of the hand based on the specified predicate (i.e. “suitColor is RED” or “rank > 10”).
