@@ -80,6 +80,7 @@ public class Supervisor extends AbstractEmployee{
         return numEmployees;
     }
 
+    @Override
     public int count(Predicate<Employee> test) {
         int numEmployees;
         numEmployees = super.count(test);
