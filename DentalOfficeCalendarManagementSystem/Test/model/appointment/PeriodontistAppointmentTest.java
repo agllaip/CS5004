@@ -11,23 +11,35 @@ import java.time.LocalTime;
 import static org.junit.Assert.*;
 
 public class PeriodontistAppointmentTest {
-    private PeriodontistAppointment periodontistAppointment;
+    private PeriodontistAppointment periodontistAppointment1;
+    private PeriodontistAppointment periodontistAppointment2;
+
 
     @Before
     public void setUp() throws Exception {
-        periodontistAppointment = new PeriodontistAppointment(60, LocalDate.now(), LocalTime.of(10,0),
-                PeriodontistAppointmentType.DENTAL_IMPLANT, "HYGIENIST");
+        periodontistAppointment1 = new PeriodontistAppointment(60, LocalDate.now(), LocalTime.of(10,0),
+                PeriodontistAppointmentType.DENTAL_IMPLANT, "PERIODONTIST");
+
+
+        periodontistAppointment2 = new PeriodontistAppointment(75, LocalDate.now(), LocalTime.of(10,0),
+                PeriodontistAppointmentType.EXTRACTION, "PERIODONTIST");
     }
 
     @Test
     public void setPeriodontistAppointmentType() {
-        periodontistAppointment.setPeriodontistAppointmentType(PeriodontistAppointmentType.SCALING_ROOT_PLANNING);
-        assertSame(PeriodontistAppointmentType.SCALING_ROOT_PLANNING, periodontistAppointment.getAppointmentType());
+        periodontistAppointment1.setPeriodontistAppointmentType(PeriodontistAppointmentType.SCALING_ROOT_PLANNING);
+        periodontistAppointment2.setPeriodontistAppointmentType(PeriodontistAppointmentType.DENTAL_IMPLANT);
+
+        assertSame(PeriodontistAppointmentType.SCALING_ROOT_PLANNING, periodontistAppointment1.getAppointmentType());
+        assertSame(PeriodontistAppointmentType.DENTAL_IMPLANT, periodontistAppointment2.getAppointmentType());
     }
 
     @Test
     public void getAppointmentType() {
-        periodontistAppointment.setPeriodontistAppointmentType(PeriodontistAppointmentType.DENTAL_IMPLANT);
-        assertSame(PeriodontistAppointmentType.DENTAL_IMPLANT, periodontistAppointment.getAppointmentType());
+        periodontistAppointment1.setPeriodontistAppointmentType(PeriodontistAppointmentType.DENTAL_IMPLANT);
+        periodontistAppointment2.setPeriodontistAppointmentType(PeriodontistAppointmentType.EXTRACTION);
+
+        assertSame(PeriodontistAppointmentType.DENTAL_IMPLANT, periodontistAppointment1.getAppointmentType());
+        assertSame(PeriodontistAppointmentType.EXTRACTION, periodontistAppointment2.getAppointmentType());
     }
 }

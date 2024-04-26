@@ -206,11 +206,11 @@ public class CustomCalendar {
      */
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder(date.toString() + " has appointments with:\n");
+        StringBuilder result = new StringBuilder("On " + date.toString() + " ");
         appointmentsByProvider.forEach((provider, appointments) -> {
-            result.append(provider.toString()).append(" - ").
-                    append(appointments.size()).append(" appointments\n");
+            result.append(provider.toString()).append(" has ").
+                    append(appointments.size()).append(" appointments.\n");
         });
-        return result.toString();
+        return result.toString().trim();
     }
 }
