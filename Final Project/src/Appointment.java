@@ -6,7 +6,7 @@ import java.time.LocalTime;
  * This abstract class represents an appointment, including its length, date, and time.
  * This abstract class is designed to be extended by more specific types of appointments.
  */
-public abstract class Appointment {
+public abstract class Appointment implements AppointmentInterface{
 
     private int appointmentLength;
     private LocalDate appointmentDate;
@@ -46,6 +46,7 @@ public abstract class Appointment {
      * Get the date of this appointment.
      * @return the date of this appointment.
      */
+    @Override
     public LocalDate getAppointmentDate() {
         return this.appointmentDate;
     }
@@ -54,6 +55,7 @@ public abstract class Appointment {
      * Set the date of this appointment.
      * @param appointmentDate the date for this appointment.
      */
+    @Override
     public void setAppointmentDate(LocalDate appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
@@ -62,6 +64,7 @@ public abstract class Appointment {
      * Get the time of this appointment.
      * @return the time of this appointment.
      */
+    @Override
     public LocalTime getAppointmentTime() {
         return this.appointmentTime;
     }
@@ -70,8 +73,15 @@ public abstract class Appointment {
      * Set the time of this appointment.
      * @param appointmentTime the time for this appointment.
      */
+    @Override
     public void setAppointmentTime(LocalTime appointmentTime) {
         this.appointmentTime = appointmentTime;
+    }
+
+    @Override
+    public void reschedule(LocalDate newDate, LocalTime newTime) {
+        setAppointmentDate(newDate);
+        setAppointmentTime(newTime);
     }
 
     @Override

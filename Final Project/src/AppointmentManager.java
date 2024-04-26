@@ -4,72 +4,55 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class AppointmentManager {
+    private CustomCalendar calendar;
+
+    public AppointmentManager(CustomCalendar calendar) {
+        this.calendar = calendar;
+    }
 
     public void createAppointment(LocalDate appointmentDate, LocalTime appointmentTime, int appointmentLength,
                                   String patientFullName, String providerFullName, String appointmentType) {
 
         Appointment appointment = new Appointment(appointmentLength, appointmentDate, appointmentTime,
-                patientFullName, providerFullName, appointmentType);
+                                  patientFullName, providerFullName, appointmentType);
 
         calendar.addAppointment(appointment);
     }
 
-    public void scheduleAppointment();
-
-    /**
-     *
-     * @param appointment
-     * @param newAppointmentDate
-     * @param newAppointmentTime
-     */
     public void rescheduleAppointment(Appointment appointment, LocalDate newAppointmentDate, LocalTime newAppointmentTime) {
-
-        appointment.setAppointmentDate(newAppointmentDate);
-        appointment.setAppointmentTime(newAppointmentTime);
+        if (calendar.getAppointmentList().contains(appointment)) {
+            appointment.setAppointmentDate(newAppointmentDate);
+            appointment.setAppointmentTime(newAppointmentTime);
+        }
+        else {
+            throw new IllegalArgumentException("Appointment does not exist.");
+        }
     }
 
-    /**
-     *
-     * @param appointment
-     */
     public void cancelAppointment(Appointment appointment) {
-
-        // Should I check if the appointment exists before I remove it?
-
-        calendar.removeAppointment(appointment);
+        if (calendar.getAppointmentList().contains(appointment)) {
+            calendar.removeAppointment(appointment);
+        }
+        else {
+            throw new IllegalArgumentException("Appointment does not exist.");
+        }
     }
 
-    public void waitlistAppointment();
-
-    /**
-     *
-     * @param appointment
-     * @param newAppointmentLength
-     */
     public void editAppointmentLength(Appointment appointment, int newAppointmentLength) {
-        appointment.setAppointmentLength(newAppointmentLength);
+        if (calendar.getAppointmentList().contains(appointment)) {
+            appointment.setAppointmentLength(newAppointmentLength);
+        }
+        else {
+            throw new IllegalArgumentException("Appointment does not exist.");
+        }
     }
 
-    public void editAppointmentProvider(Appointment appointment, String newProviderFullName) {
-
-    }
-
-    /**
-     *
-     * @param appointment
-     * @param newAppointmentDate
-     */
     public void editAppointmentDate(Appointment appointment, LocalDate newAppointmentDate) {
-        appointment.setAppointmentDate(newAppointmentDate);
+        rescheduleAppointment(appointment, newAppointmentDate, appointment.getAppointmentTime());
     }
 
-    /**
-     *
-     * @param appointment
-     * @param newAppointmentTime
-     */
     public void editAppointmentTime(Appointment appointment, LocalTime newAppointmentTime) {
-        appointment.setAppointmentTime(newAppointmentTime);
+        rescheduleAppointment(appointment, appointment.getAppointmentDate(), newAppointmentTime);
     }
 
     public void sendAppointmentReminder();
